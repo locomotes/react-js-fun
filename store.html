@@ -1,0 +1,105 @@
+
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="http://fb.me/react-0.12.1.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.12.1.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  </head>
+  <body>
+    
+    <div id="outer-container">
+      <div id="reactcontent">
+      </div>
+    </div>
+
+    <script type="text/jsx">
+
+      var APP = React.createClass({
+        getInitialState:function(){
+          return {
+            red:0,
+            green:0,
+            blue:0,
+            styles: {},
+          }
+        },
+        update:function(){
+          this.setState({
+            red:this.refs.red.refs.range.getDOMNode().value,
+            green:this.refs.green.refs.range.getDOMNode().value,
+            blue:this.refs.blue.refs.range.getDOMNode().value,
+            styles: {backgroundColor: 'rgb('+this.state.red +
+                ',' +this.state.green+','+this.state.blue + ')'}
+          })
+        },
+        render:function(){
+          console.log(this.state.styles);
+          if (
+              (this.state.red === '59') && 
+              (this.state.green === '181') && 
+              (this.state.blue ==='81') 
+            ){
+            alert('CONGRATS YOU FOUND BELLHOPS BRAND GREEN');
+          }
+          
+
+
+          return (
+              <div style={this.state.styles}>
+                <Slider ref="red" update={this.update} />
+                <label>{this.state.red}</label>
+                <Slider ref="green" update={this.update} />
+                <label>{this.state.green}</label>
+                <Slider ref="blue" update={this.update} />
+                <label>{this.state.blue}</label>
+              </div>
+            )
+        }
+      });
+
+      var Slider = React.createClass({
+        render:function(){
+          return (
+              <div>
+                <input 
+                  ref="range"
+                  type="range"
+                  min="0"
+                  max="255"
+                  onChange={this.props.update} />
+              </div>
+            )
+        }
+      });
+
+
+    React.renderComponent(
+        <APP />,
+        document.querySelector('#reactcontent'))
+
+      // END RGB COLOR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+  </body>
+</html>
